@@ -43,10 +43,59 @@ export async function createUser(req, res) {
     
 }
 
-export async function getUser(){
+export async function getUser(req,res) {
 
+    try {
+        
+        const userRepository = AppDataSource.getRepository(User)
+        const id = req.params.id
+        const userFound = await userRepository.findOne({
+            where:{
+                id : id
+            }
+        })
+
+        if(!userFound){
+            return res.status(404).json({
+                message: "Usuario no encontrado"
+            })
+        }
+
+        res.status(200).json({
+            message: "Usuario encontrado",
+            data: userFound
+        })
+
+
+
+    } catch (error) {
+        console.error('Error al obtener un usurio, el error: ', error)
+    }
+    
 }
 
-export async function getUsers(){
+export async function getUsers(req, res){
+
+    try{
+
+        const userRepository = AppDataSource.getRepository(User)
+        const users = await userRepository.find()
+        
+
+        if(!users){
+            return res.status(404).json({
+                message: "No se encontraron usuarios",
+                data: null
+            })
+        }
+
+        res.status(200).json({
+            message: "Usuarios encontrados",
+            data: users
+        })
+    
+    } catch (error) {
+        console.error('Error al obtener un usuarios, el error: ', error)
+    }
 
 }
