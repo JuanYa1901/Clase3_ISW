@@ -39,7 +39,7 @@ const UserSchema = new EntitySchema({
 
         createAt:{
 
-            type: "time with time zone",
+            type: "timestamp with time zone",
             default: () => "CURRENT_TIMESTAMP",
             nullable: false,
 
@@ -47,7 +47,7 @@ const UserSchema = new EntitySchema({
 
         updateAt:{
 
-            type: "time with time zone",
+            type: "timestamp with time zone",
             default: () => "CURRENT_TIMESTAMP",
             onUpdate: "CURRENT_TIMESTAMP",
             nullable: false,
